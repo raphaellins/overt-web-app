@@ -1,6 +1,5 @@
 import React from 'react';
-import Routes from './routes';
-
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,9 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import NewGame from './sections/NewGame'
-
-
+import NewGame from './NewGame'
 
 import Button from '@material-ui/core/Button';
 
@@ -108,28 +105,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(false);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+// import { Container } from './styles';
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+export default function HeaderBar() {
+  const history = useHistory();
+  const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+
+  function openSection(section) {
+    history.push(`/${section}`);
+  }
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <Toolbar className={classes.toolbar}>
+        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          Overt
+      </Typography>
 
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Routes />
-        </Container>
-      </main>
-    </div>
+        {/* <Link className="button" to="/new-game">New Game</Link> */}
+        <Button color="inherit" onClick={() => { openSection('') }}>Home</Button>
+        <Button color="inherit" onClick={() => { openSection('new-game') }}>New Game</Button>
+      </Toolbar>
+    </AppBar>
   );
 }

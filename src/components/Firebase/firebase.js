@@ -1,4 +1,6 @@
-const config = {
+import app from 'firebase/app';
+
+const devConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -7,6 +9,17 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
+};
+
+const prodConfig = {}
+
+const config =
+  process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
+
+class Firebase {
+  constructor() {
+    app.initializeApp(config);
+  }
 }
 
-export default config;
+export default Firebase;

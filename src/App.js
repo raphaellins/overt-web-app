@@ -1,8 +1,9 @@
 import React from 'react';
 import Routes from './routes';
 
+
+// import { FirebaseContext } from '../Firebase';
 import Firebase from 'firebase';
-import config from './config/Config';
 
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -114,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
 class App extends React.Component {
 
   componentDidMount() {
-    Firebase.initializeApp(config);
+    // Firebase.initializeApp(config);
     Firebase.analytics();
 
 
@@ -122,7 +123,7 @@ class App extends React.Component {
   }
 
   retrieveData = async () => {
-    let games = await Firebase.database().ref('games');
+    let games = await Firebase.database().ref('/');
     games.on('value', snapshot => {
       console.log(snapshot.val());
 

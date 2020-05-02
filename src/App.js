@@ -1,8 +1,11 @@
 import React from 'react';
 import Routes from './routes';
 
+import Firebase from 'firebase';
+import config from './config/Config';
+
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -108,20 +111,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function App() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(false);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+class App extends React.Component {
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  componentDidMount() {
+    Firebase.initializeApp(config);
+    Firebase.analytics();
 
-  return (
-    <div className={classes.root}>
+
+    this.retrieveData();
+  }
+
+  retrieveData = async () => {
+    let games = await Firebase.database().ref('games');
+    games.on('value', snapshot => {
+      console.log(snapshot.val());
+
+      this.setState(snapshot.val());
+    })
+  }
+
+  render() {
+    const { classes } = this.props;
+    return <div className={classes.root}>
       <CssBaseline />
 
       <main className={classes.content}>
@@ -131,5 +142,8 @@ export default function App() {
         </Container>
       </main>
     </div>
-  );
+  };
 }
+
+
+export default withStyles(useStyles)(App);

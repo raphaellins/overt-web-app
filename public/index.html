@@ -13,9 +13,11 @@
   <script defer src="/__/firebase/7.14.2/firebase-database.js"></script>
   <script defer src="/__/firebase/7.14.2/firebase-messaging.js"></script>
   <script defer src="/__/firebase/7.14.2/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   <!-- initialize the SDK after all desired features are loaded -->
-  <script defer src="/__/firebase/init.js"></script>
+  <!-- <script defer src="/__/firebase/init.js"></script> -->
 
   <style media="screen">
     body {
@@ -97,13 +99,20 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      try {
-        let app = firebase.app();
-        let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-        document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-      } catch (e) {
-        console.error(e);
-      }
+      // Your web app's Firebase configuration
+      // var firebaseConfig = {
+      //   apiKey: "AIzaSyCBSX8qFl7N4y-2W3eY0HFHZOI4wpE1o1M",
+      //   authDomain: "overt-e990b.firebaseapp.com",
+      //   databaseURL: "https://overt-e990b.firebaseio.com",
+      //   projectId: "overt-e990b",
+      //   storageBucket: "overt-e990b.appspot.com",
+      //   messagingSenderId: "10922470147",
+      //   appId: "1:10922470147:web:b8ccba317b88c4ac155736",
+      //   measurementId: "G-Z3PRP8QB2E"
+      // };
+      // // Initialize Firebase
+      // firebase.initializeApp(firebaseConfig);
+      // firebase.analytics();
     });
   </script>
 </body>
